@@ -92,7 +92,7 @@ class DirectoryController extends Controller
         $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->get();
         $content = View::make('Twilio.generate')->render();
             $rab=rand("1111","9999");
-            $fpath=url("/")."/public/phonexml/".$rab.".xml";
+            $fpath="https://tier5.us/promotion/public/"."phonexml/".$rab.".xml";
             File::put($fpath, $content);
             
         foreach ($BusinessListing as $key => $value) {
