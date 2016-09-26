@@ -90,11 +90,12 @@ class DirectoryController extends Controller
     public function callList($direct){
         
         $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->get();
-        foreach ($BusinessListing as $key => $value) {
-            $content = View::make('Twilio.generate')->render();
+        $content = View::make('Twilio.generate')->render();
             $rab=rand("1111","9999");
             File::put("phonexml/".$rab.".xml", $content);
-            $fpath="phonexml/".$rab.".xml";
+            $fpath=url("/")."/public/phonexml/".$rab.".xml";
+        foreach ($BusinessListing as $key => $value) {
+            
             $CallStack=new CallStack;
             $CallStack->pathxl=$fpath;
             $CallStack->phone=$value->phone;
@@ -103,7 +104,7 @@ class DirectoryController extends Controller
             $CallStack->save();
         }
         $this->readNCall();
-        //dd($BusinessListing);
+        
     }
     public function readNCall(){
         $CallStack=CallStack::where('called','=',0)->where('phone','!=',"")->get();
