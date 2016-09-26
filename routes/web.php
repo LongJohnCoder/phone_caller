@@ -15,7 +15,7 @@ Route::get('/','UserController@index');
 
 Route::post('user/signin', 'UserController@userSignin');
 Route::any('dashboard', 'DashboardController@index');
-Route::get('directory/list', 'DirectoryController@List');
+Route::get('directory/list', 'DirectoryController@ListsDirect');
 Route::get('directory/add', 'DirectoryController@Add');
 Route::Post('directory/save', 'DirectoryController@Save');
 Route::get('directory/{directory}','DirectoryController@BuisnessList');

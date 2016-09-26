@@ -31,7 +31,7 @@ class DirectoryController extends Controller
     	return redirect('directory/list');
 
     }
-    public function List(){
+    public function ListsDirect(){
     	$direct=$this->direc;
     	$Directories=Directories::all();
     	return view('directory.list',compact('Directories','direct'));
