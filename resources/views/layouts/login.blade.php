@@ -12,16 +12,16 @@
     <title>Promotion</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{ asset('/cms/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url('')}}/public/cms/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="{{ asset('/cms/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+    <link href="{{url('')}}/public/cms/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ asset('/cms/dist/css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{url('')}}/public/cms/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{{ asset('/cms/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url('')}}/public/cms/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,16 +37,16 @@
     @yield('content')
 
     <!-- jQuery -->
-    <script src="{{ asset('/cms/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url('')}}/public/cms/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ asset('/cms/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{url('')}}/public/cms/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{ asset('/cms/vendor/metisMenu/metisMenu.min.js')}}"></script>
+    <script src="{{url('')}}/public/cms/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="{{ asset('/cms/dist/js/sb-admin-2.js')}}"></script>
+    <script src="{{url('')}}/public/cms/dist/js/sb-admin-2.js"></script>
 
 </body>
 
