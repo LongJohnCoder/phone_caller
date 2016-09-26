@@ -12,19 +12,19 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{url('')}}/public/cms/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/cms/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="{{url('')}}/public/cms/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="{{ asset('/cms/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{url('')}}/public/cms/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ asset('/cms/dist/css/sb-admin-2.css')}}" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="{{url('')}}/public/cms/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="{{ asset('/cms/vendor/morrisjs/morris.css')}}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{{url('')}}/public/cms/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/cms/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -105,21 +105,21 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('/cms/vendor/jquery/jquery.min.js')}}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="{{ asset('/cms/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="{{ asset('/cms/vendor/metisMenu/metisMenu.min.js')}}"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/raphael/raphael.min.js"></script>
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/morrisjs/morris.min.js"></script>
-    <script src="{{url('')}}/public{{url('')}}/public/cms/data/morris-data.js"></script>
-	<script src="{{url('')}}/public{{url('')}}/public/cms/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="{{url('')}}/public{{url('')}}/public/cms/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="{{ asset('/cms/vendor/raphael/raphael.min.js')}}"></script>
+    <script src="{{ asset('/cms/vendor/morrisjs/morris.min.js')}}"></script>
+    <script src="{{ asset('/cms/data/morris-data.js')}}"></script>
+	<script src="{{ asset('/cms/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('/cms/vendor/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('/cms/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
 
        
     <!-- Custom Theme JavaScript -->
