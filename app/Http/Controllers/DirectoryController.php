@@ -94,7 +94,7 @@ class DirectoryController extends Controller
             $content = View::make('Twilio.generate')->render();
             $rab=rand("1111","9999");
             File::put("phonexml/".$rab.".xml", $content);
-            $fpath="/phonexml/".$rab.".xml";
+            $fpath="phonexml/".$rab.".xml";
             $CallStack=new CallStack;
             $CallStack->pathxl=$fpath;
             $CallStack->phone=$value->phone;
