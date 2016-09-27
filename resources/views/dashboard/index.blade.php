@@ -24,8 +24,8 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <a href="{{ URL::to('callconsole/add_call') }}"><span class="pull-left">Make Call</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>
                                 <div class="clearfix"></div>
                             </div>
                         </a>

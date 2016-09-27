@@ -10,7 +10,7 @@ use App\Model\BusinessListing;
 use App\Model\CallStack;
 use File;
 use View;
-
+use Illuminate\Routing\UrlGenerator;
 use Aloha\Twilio\Twilio;
 use Services_Twilio;
 use Aloha\Twilio\TwilioInterface;
@@ -87,14 +87,15 @@ class DirectoryController extends Controller
         }
             
     }
-    public function callList($direct){
+    public function callList($direct,Request $request){
         
         $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->get();
         $content = View::make('Twilio.generate')->render();
+            dd($content);
             $rab=rand("1111","9999");
-            $fpath=url()."phonexml/".$rab.".xml";
+            echo $fpath=url('/')."/callforma/".$rab.".xml";
             File::put($fpath, $content);
-            
+            exit;
         foreach ($BusinessListing as $key => $value) {
             
             $CallStack=new CallStack;

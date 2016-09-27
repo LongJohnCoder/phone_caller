@@ -23,3 +23,5 @@ Route::get('directory/uploadxml/{directory}','DirectoryController@UploadXml');
 Route::Post('directory/savexml','DirectoryController@saveXml');
 Route::get('readNstore','DirectoryController@readNstore');
 Route::get('directory/calllist/{directory}','DirectoryController@callList');
+Route::get('callconsole/add_call','CallconsoleController@addcall');
+Route::post('callstack/save','CallconsoleController@saveexces');
