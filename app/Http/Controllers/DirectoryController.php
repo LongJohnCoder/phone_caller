@@ -95,7 +95,7 @@ class DirectoryController extends Controller
         //dd($BusinessListing);
         
     }
-    public function readNCall(){
+    public function readNCall($direct){
             $fpath=url('/')."/directory/calllist/2";
             //dd($fpath);
             $sid = env('TWILLIO_LIVE_SID');
