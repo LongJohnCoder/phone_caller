@@ -96,7 +96,7 @@ class DirectoryController extends Controller
         
     }
     public function readNCall($direct){
-            $fpath=url('/')."/directory/calllist/2";
+            $fpath=url('/')."/directory/calllist/".$direct;
             //dd($fpath);
             $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
