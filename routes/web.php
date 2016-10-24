@@ -25,3 +25,4 @@ Route::get('readNstore','DirectoryController@readNstore');
 Route::get('directory/calllist/{directory}','DirectoryController@callList');
 Route::get('callconsole/add_call','CallconsoleController@addcall');
 Route::post('callstack/save','CallconsoleController@saveexces');
+Route::get('callconsole/testcall','DirectoryController@readNCall');

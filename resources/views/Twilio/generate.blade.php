@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    
-    <Gather action="" method="GET">
-        <Say>
-            Hello, this is calling
-        </Say>
+	
+    <Gather action="{{ config('app.url') . "/phone/check-confirmation/{$BusinessListing->id}" }}">
+        <Play>https://api.twilio.com/cowbell.mp3</Play>
+
     </Gather>
 </Response>

@@ -89,28 +89,15 @@ class DirectoryController extends Controller
     }
     public function callList($direct,Request $request){
         
-        $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->get();
-        $content = View::make('Twilio.generate')->render();
-            dd($content);
-            $rab=rand("1111","9999");
-            echo $fpath=url('/')."/callforma/".$rab.".xml";
-            File::put($fpath, $content);
-            exit;
-        foreach ($BusinessListing as $key => $value) {
-            
-            $CallStack=new CallStack;
-            $CallStack->pathxl=$fpath;
-            $CallStack->phone=$value->phone;
-            $CallStack->audiofile="";
-            $CallStack->called=0;
-            $CallStack->save();
-        }
-        $this->readNCall();
+        $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->first();
+        //dd($BusinessListing);
+        return \Response::view('Twilio.generate', compact('BusinessListing'))->header('Content-Type', 'text/xml');
+        //dd($BusinessListing);
         
     }
     public function readNCall(){
-        $CallStack=CallStack::where('called','=',0)->where('phone','!=',"")->get();
-        foreach ($CallStack as $key => $value) {
+            echo $fpath=url('/')."/directory/calllist/2";
+            dd($fpath);
             $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
             $number = env('TWILIO_LIVE_NUNBER');
@@ -118,8 +105,8 @@ class DirectoryController extends Controller
             $call = $client->account->calls->create(
             $number,
             '+18127224722', 
-            "https://demo.twilio.com/welcome/voice"
+            $fpath
             );
-        }
+        
     }
 }
