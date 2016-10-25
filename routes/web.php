@@ -26,3 +26,4 @@ Route::get('directory/calllist/{directory}','DirectoryController@callList');
 Route::get('callconsole/add_call','CallconsoleController@addcall');
 Route::post('callstack/save','CallconsoleController@saveexces');
 Route::get('callconsole/testcall/{directory}','DirectoryController@readNCall');
+Route::get('start-calling/{directory}','DirectoryController@readNCall');

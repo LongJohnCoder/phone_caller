@@ -15,6 +15,7 @@ use Aloha\Twilio\Twilio;
 use Services_Twilio;
 use Aloha\Twilio\TwilioInterface;
 use Services_Twilio_Twiml;
+use Illuminate\Filesystem\Filesystem;
 class DirectoryController extends Controller
 {
     //
@@ -91,22 +92,35 @@ class DirectoryController extends Controller
         
         $BusinessListing=BusinessListing::where('type',$direct)->where('phone','!=',"")->first();
         //dd($BusinessListing);
-        return \Response::view('Twilio.generate', compact('BusinessListing'))->header('Content-Type', 'text/xml');
+
+
+        $fs = new Filesystem();
+
+        $data = array();
+
+        $fs->put("exercise.xml", View::make('Twilio.generate', compact('BusinessListing')));
+
+        //return \Response::view('Twilio.generate', compact('BusinessListing'))->header('Content-Type', 'text/xml');
         //dd($BusinessListing);
         
     }
     public function readNCall($direct){
-            $fpath=url('/')."/directory/calllist/".$direct;
-            //dd($fpath);
+        //echo $direct;
+        $CallStack=CallStack::where('directory_type',$direct)->where('called',Null)->get();
+        //dd($CallStack);
             $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
             $number = env('TWILIO_LIVE_NUNBER');
+            foreach ($CallStack as $key => $call) {
+                
             $client = new Services_Twilio($sid, $token);
             $call = $client->account->calls->create(
             $number,
-            '+18127224722', 
-            $fpath
+            '+'.$call->phone, 
+            $call->pathxl
             );
+            }
+            
         
     }
 }
