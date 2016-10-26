@@ -64,8 +64,9 @@ class CallconsoleController extends Controller
 
 	}
 	public function CheckConfirm($buisness_listin_id,Request $request){
+		
 		$CallStack=CallStack::where('buisness_listing_id',$buisness_listin_id)->first();
-		$CallStack->called=$request->all();
+		$CallStack->called=$request->all('Digits');
 		$CallStack->save();
 	}
 }
