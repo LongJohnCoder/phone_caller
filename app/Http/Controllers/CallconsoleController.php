@@ -51,7 +51,8 @@ class CallconsoleController extends Controller
 			$fs = new Filesystem();
 			$data = array();
 			$newfilename = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
-			$fs->put($newfilename, \View::make('Twilio.generate', compact('value','fpath')));
+			$location=url('/')."/phone/check-confirmation/".$value->id;
+			$fs->put($newfilename, \View::make('Twilio.generate', compact('value','fpath','location')));
 			$CallStack=new CallStack;
 			$CallStack->pathxl=url('/')."/".$newfilename;
 			$CallStack->phone=$value->phone;
