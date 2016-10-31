@@ -106,7 +106,7 @@ class CallconsoleController extends Controller
         
         }
 		
-		$content = \View::make('confirm_generate');
+		$content = \View::make('Twilio.confirm_generate');
 
 		return Response::make($content, '200')->header('Content-Type', 'text/xml');
 	}
