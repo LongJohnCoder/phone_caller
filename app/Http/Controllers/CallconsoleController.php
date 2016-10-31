@@ -70,8 +70,25 @@ class CallconsoleController extends Controller
 		$CallStack->save();
 		if ($request->has('Digits')) {
             $digits = $request->get('Digits');
-            $newfilename = "phonexml/".rand(100, 999)."-".date('U').'.xml';			
+            $newfilename = "phonexml/".rand(100, 999)."-".date('U').'.xml';	
+			$CallStack=CallStack::where('buisness_listing_id',$buisness_listin_id)->first();
+			$CallStack->called=$request->get('Digits');
+			$CallStack->save();
+            $fs = new Filesystem();		
 			$fs->put($newfilename, \View::make('Twilio.confirm_generate', compact('digits')));
+        	$sid = env('TWILLIO_LIVE_SID');
+            $token = env('TWILLIO_LIVE_TOKEN');
+            $number = env('TWILIO_LIVE_NUNBER');
+            $pat=url('/')."/".$newfilename;
+            
+                
+            $client = new Services_Twilio($sid, $token);
+            $call = $client->account->calls->create(
+            $number,
+            '+'.$CallStack->phone, 
+            $pat
+            );
+
         }
 	}
 }

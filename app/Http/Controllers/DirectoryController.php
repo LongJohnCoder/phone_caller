@@ -119,6 +119,7 @@ class DirectoryController extends Controller
             '+'.$call->phone, 
             $call->pathxl
             );
+            echo $call->pathxl;
             }
             
         
