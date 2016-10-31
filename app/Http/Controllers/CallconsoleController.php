@@ -63,6 +63,7 @@ class CallconsoleController extends Controller
 			$CallStack->pathxl=url('/')."/".$newfilename;
 			$CallStack->phone=$value->phone;
 			$CallStack->audiofile=$fpath;
+			$CallStack->text_cont=$text_cont;
 			$CallStack->directory_type=$typ;
 			$CallStack->buisness_listing_id=$value->id;
 			$CallStack->save();

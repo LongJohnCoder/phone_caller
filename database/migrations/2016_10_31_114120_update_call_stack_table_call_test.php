@@ -15,7 +15,7 @@ class UpdateCallStackTableCallTest extends Migration
     {
         //
         Schema::table('call_stack', function (Blueprint $table) {
-            $table->text('text_cont')->after('audiofile');
+            $table->text('text_cont')->nullable()->after('audiofile');
             
         });
     }
