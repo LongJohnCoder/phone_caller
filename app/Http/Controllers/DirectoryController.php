@@ -122,7 +122,7 @@ class DirectoryController extends Controller
             
             }
 
-            return Redirect::back()->with('success','call sequenced in progress')->withInput();
+            return \Redirect::back()->with('success','call sequenced in progress')->withInput();
         
     }
 }
