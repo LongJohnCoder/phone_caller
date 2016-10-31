@@ -105,9 +105,9 @@ class DirectoryController extends Controller
         
     }
     public function readNCall($direct){
-        //echo $direct;
+        
         $CallStack=CallStack::where('directory_type',$direct)->where('called',Null)->get();
-        //dd($CallStack);
+        
             $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
             $number = env('TWILIO_LIVE_NUNBER');
@@ -119,7 +119,7 @@ class DirectoryController extends Controller
             '+'.$call->phone, 
             $call->pathxl
             );
-            //echo $call->pathxl;
+            print_r($call);
             }
             
         

@@ -70,30 +70,38 @@ class CallconsoleController extends Controller
 	}
 	public function CheckConfirm($buisness_listin_id,Request $request){
 			
-		$CallStack=CallStack::where('buisness_listing_id',$buisness_listin_id)->first();
-		$CallStack->called=$request->input('Digits');
-		$CallStack->save();
+		
 		if ($request->has('Digits')) {
-            $digits = $request->get('Digits');
-            $newfilename = "phonexml/".rand(100, 999)."-".date('U').'.xml';	
-			$CallStack=CallStack::where('buisness_listing_id',$buisness_listin_id)->first();
-			$CallStack->called=$request->get('Digits');
-			$CallStack->save();
-            $fs = new Filesystem();		
-			$fs->put($newfilename, \View::make('Twilio.confirm_generate', compact('digits')));
-        	 $sid = env('TWILLIO_LIVE_SID');
-            $token = env('TWILLIO_LIVE_TOKEN');
-            $number = env('TWILIO_LIVE_NUNBER');
-            $pat=url('/')."/".$newfilename;
-            
-                
-            $client = new Services_Twilio($sid, $token);
-            $call = $client->account->calls->create(
-            $number,
-            '+'.$CallStack->phone, 
-            $pat
-            );
+			$Digits=$request->get('Digits');
+			if($Digits==0){
 
+				$BusinessListing=BusinessListing::find($buisness_listin_id);
+				$BusinessListing->called=1;
+				$BusinessListing->subscribed=2;
+				$BusinessListing->save();
+
+			}
+			elseif($Digits==1){
+				$tx=time();
+				$tmy=date("H:i:s",$tx);
+				$BusinessListing=BusinessListing::find($buisness_listin_id);
+				$BusinessListing->called=1;
+				$BusinessListing->subscribed=1;
+				$BusinessListing->call_time=$tmy;
+				$BusinessListing->call_now=1;
+				$BusinessListing->save();
+
+			}
+			else{
+				$BusinessListing=BusinessListing::find($buisness_listin_id);
+				$BusinessListing->called=1;
+				$BusinessListing->subscribed=1;
+				$BusinessListing->call_time=$Digits*100;
+				$BusinessListing->call_now=0;
+				$BusinessListing->save();
+			}
+
+        
         }
 	}
 }
