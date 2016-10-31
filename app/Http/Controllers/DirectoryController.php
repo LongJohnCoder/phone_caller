@@ -119,9 +119,10 @@ class DirectoryController extends Controller
             '+'.$call->phone, 
             $call->pathxl
             );
-            print_r($call);
-            }
             
+            }
+
+            return Redirect::back()->with('success','call sequenced in progress')->withInput();
         
     }
 }

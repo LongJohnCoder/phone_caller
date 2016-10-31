@@ -31,6 +31,8 @@
                                         <th>Email_id</th>
                                         <th>Called</th>
                                         <th>subscribed</th>
+                                        <th>Call Time</th>
+                                        <th>Call Now</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,8 +42,10 @@
                                         <td>{!!  $list->website !!}</td>
                                         <td>{!!  $list->phone !!}</td>
                                         <td >{!!  $list->email_id !!}</td>
-                                        <td >{!!  $list->called !!}</td>
-                                        <td>{!!  $list->subscribed !!}</td>
+                                        <td >@if($list->called==1)Yes @else No @endif</td>
+                                        <td>@if($list->subscribed==1)Yes @else No @endif</td>
+                                        <td>{!!  $list->call_time !!}</td>
+                                        <td>@if($list->call_now==1) Yes @else No @endif</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
