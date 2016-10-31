@@ -59,6 +59,9 @@ class CallconsoleController extends Controller
 			$newfilename = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
 			$location=url('/')."/api/phone/check-confirmation/".$value->id;
 			$fs->put($newfilename, \View::make('Twilio.generate', compact('value','fpath','location','text_cont')));
+			$flight = CallStack::where('buisness_listing_id',$value->id);
+
+            $flight->delete();
 			$CallStack=new CallStack;
 			$CallStack->pathxl=url('/')."/".$newfilename;
 			$CallStack->phone=$value->phone;
