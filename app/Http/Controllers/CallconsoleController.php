@@ -10,6 +10,11 @@ use App\Model\Directories;
 use App\Model\BusinessListing;
 use App\Model\CallStack;
 use DOMDocument;
+use Illuminate\Routing\UrlGenerator;
+use Aloha\Twilio\Twilio;
+use Services_Twilio;
+use Aloha\Twilio\TwilioInterface;
+use Services_Twilio_Twiml;
 use Illuminate\Filesystem\Filesystem;
 class CallconsoleController extends Controller
 {
@@ -76,7 +81,7 @@ class CallconsoleController extends Controller
 			$CallStack->save();
             $fs = new Filesystem();		
 			$fs->put($newfilename, \View::make('Twilio.confirm_generate', compact('digits')));
-        	$sid = env('TWILLIO_LIVE_SID');
+        	 $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
             $number = env('TWILIO_LIVE_NUNBER');
             $pat=url('/')."/".$newfilename;
