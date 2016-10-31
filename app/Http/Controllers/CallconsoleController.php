@@ -64,9 +64,14 @@ class CallconsoleController extends Controller
 
 	}
 	public function CheckConfirm($buisness_listin_id,Request $request){
-		
+			
 		$CallStack=CallStack::where('buisness_listing_id',$buisness_listin_id)->first();
 		$CallStack->called=$request->input('Digits');
 		$CallStack->save();
+		if ($request->has('Digits')) {
+            $digits = $request->get('Digits');
+            $newfilename = "phonexml/".rand(100, 999)."-".date('U').'.xml';			
+			$fs->put($newfilename, \View::make('Twilio.confirm_generate', compact('digits')));
+        }
 	}
 }
