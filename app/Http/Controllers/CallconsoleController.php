@@ -43,11 +43,12 @@ class CallconsoleController extends Controller
             $newfilename = rand(1000, 9999)."-".date('U').'.'.$extension;
             $uploadSuccess = $avatar->move($destinationPath, $newfilename);
             $typ=$request->input('optionsRadios');
-            $exc= $this->generateXml($typ,$newfilename);
+            $text_cont=$request->input('text_cont');
+            $exc= $this->generateXml($typ,$newfilename,$text_cont);
             return Redirect('start-calling/'.$typ);
         }
 	}
-	public function generateXml($typ,$newfilename){
+	public function generateXml($typ,$newfilename,$text_cont){
 		
 		$fpath=url('/')."/audio/".$newfilename;
 		$BusinessListing=BusinessListing::where('type',$typ)->where('phone','!=',"")->where('called',0)->get();
@@ -57,7 +58,7 @@ class CallconsoleController extends Controller
 			$data = array();
 			$newfilename = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
 			$location=url('/')."/api/phone/check-confirmation/".$value->id;
-			$fs->put($newfilename, \View::make('Twilio.generate', compact('value','fpath','location')));
+			$fs->put($newfilename, \View::make('Twilio.generate', compact('value','fpath','location','text_cont')));
 			$CallStack=new CallStack;
 			$CallStack->pathxl=url('/')."/".$newfilename;
 			$CallStack->phone=$value->phone;

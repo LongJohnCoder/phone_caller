@@ -34,6 +34,10 @@
                                             <label>Upload Audio File</label>
 											{{ Form::file('audio', '', ['class' => 'form-control']) }}
                                         </div>
+                                        <div class="form-group">
+                                            <label>Usable Text By Twilio</label>
+                                            {!! Form::text('text_con','',['class'=>'form-control','required'=>'required','placeholder'=>'Usable Text By Twilio']) !!}
+                                        </div>
                                         
                                         {!! Form::submit('Create',['class'=>'btn btn-lg btn-success btn-block']) !!}
                                     {!! Form::close() !!}
