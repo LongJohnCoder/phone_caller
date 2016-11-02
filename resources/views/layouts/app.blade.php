@@ -127,11 +127,13 @@
  `	<script>
             $(document).ready(function() {
                 $('#dataTables-example').DataTable({
-                    responsive: true
+                    responsive: true,
                 });
+
+
                 $(".callhit").on("click", function()
                 {
-                alert($(this).data("id"));
+                //alert($(this).data("id"));
                 $.ajax({
                 url: "<?php echo url('/');?>/callconsole/testcall/"+$(this).data("id"),
                 data: {_token: '{!! csrf_token() !!}'},
@@ -143,6 +145,38 @@
                 return false;
                 });
 
+                $(".chkbox").change(function() {                
+                    if( $(this).is(":checked") ) {
+                        console.log("test");
+                        $(".dirt").prop('checked', true);
+                    }else{
+                        console.log("test2");
+                        $(".dirt").prop('checked', false);
+                    }
+                });
+                $(".moveact").on("click", function()
+                {
+                    var selected = new Array();
+                    $("input:checkbox[name='direc[]']:checked").each(function() {
+                        selected.push($(this).val());
+                    });
+                    var dir=$(this).data("nowdirect");
+                    console.log(selected.length);
+                    if(selected.length!=0){
+                       $.ajax({
+                        url: "<?php echo url('/');?>/Ajax/moveto",
+                        data: {_token: '{!! csrf_token() !!}',directory:dir,select_business:selected},
+                        type :"post",
+                        success: function( data ) {
+                            $(".modal-body").html(data);
+                            }
+                    }); 
+                   }else{
+                    $(".modal-body").html('<h4>Please Select Atlist one buisness to move or Copy</h4>');
+                   }
+                    
+
+                });
             });
     </script>
 </body>

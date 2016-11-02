@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Model\Directories;
 use App\Model\BusinessListing;
 use App\Model\CallStack;
+use App\Model\BusinessListMapDirectory;
 use File;
 use View;
 use Illuminate\Routing\UrlGenerator;
@@ -41,8 +42,8 @@ class DirectoryController extends Controller
     public function BuisnessList($directory){
     	$direct=$this->direc;
         $directory;
-        $BusinessListing=BusinessListing::where('type',$directory)->get();
-    	return view('directory.buisness_list',compact('direct','directory','BusinessListing'));
+        $BusinessListMapDirectory=BusinessListMapDirectory::where('directory_id',$directory)->with('buisness_details')->get();
+        return view('directory.buisness_list',compact('direct','directory','BusinessListMapDirectory'));
     }
     public function UploadXml($directory){
     	$direct=$this->direc;
@@ -67,6 +68,7 @@ class DirectoryController extends Controller
             $uploadSuccess = $avatar->move($destinationPath, $newfilename);
             $typ=$request->input('type');
             $exc= $this->readNstore($typ,$newfilename);
+            return \Redirect::back()->with('success','All Business have been listed Successfuly')->withInput();
             
         }
     }
@@ -75,8 +77,8 @@ class DirectoryController extends Controller
         $data = Excel::load( $destinationPath, function($reader) {
             })->get();
         foreach ($data as  $value) {
+
             $BusinessListing=new BusinessListing;
-            $BusinessListing->type=$typ;
             $BusinessListing->company_name=$value->name_of_the_company;
             $BusinessListing->website=$value->website;
             $BusinessListing->address=$value->address;
@@ -85,7 +87,13 @@ class DirectoryController extends Controller
             $BusinessListing->called=0;
             $BusinessListing->subscribed=0;
             $BusinessListing->save();
+
+            $BusinessListMapDirectory=new BusinessListMapDirectory;
+            $BusinessListMapDirectory->business_list_id=$BusinessListing->id;
+            $BusinessListMapDirectory->directory_id=$typ;
+            $BusinessListMapDirectory->save();
         }
+
             
     }
     public function callList($direct,Request $request){
@@ -124,5 +132,44 @@ class DirectoryController extends Controller
 
             return \Redirect::back()->with('success','call sequenced in progress')->withInput();
         
+    }
+    public function AddIndividual($directory){
+        $direct=$this->direc;
+        $Directories=Directories::where('id',$directory)->first();
+        return view('directory.addindividualbuissness',compact('direct','Directories'));
+
+    }
+    public function savebusiness(Request $request){
+        
+        $BusinessListing=new BusinessListing;
+        $BusinessListing->company_name=$request->input('company_name');
+        $BusinessListing->website=$request->input('website');
+        $BusinessListing->address=$request->input('address');
+        $BusinessListing->phone=$request->input('phone');
+        $BusinessListing->email_id=$request->input('email_id');
+        
+        $BusinessListing->save();
+
+        $BusinessListMapDirectory=new BusinessListMapDirectory;
+        $BusinessListMapDirectory->business_list_id=$BusinessListing->id;
+        $BusinessListMapDirectory->directory_id=$request->input('did');
+        $BusinessListMapDirectory->save();
+        return \Redirect::back()->with('success','call sequenced in progress')->withInput();
+    }
+    public function editbusiness($buisness_id){
+        $direct=$this->direc;
+        $BusinessListing=BusinessListing::find($buisness_id);
+        return view('directory.editindividualbuissness',compact('direct','BusinessListing'));
+    }
+    public function updatebusiness(Request $request){
+        $id=$request->input('id');
+        $BusinessListing=BusinessListing::find($id);
+        $BusinessListing->company_name=$request->input('company_name');
+        $BusinessListing->website=$request->input('website');
+        $BusinessListing->address=$request->input('address');
+        $BusinessListing->phone=$request->input('phone');
+        $BusinessListing->email_id=$request->input('email_id');
+        $BusinessListing->save();
+        return \Redirect::back()->with('success','call sequenced in progress')->withInput();
     }
 }

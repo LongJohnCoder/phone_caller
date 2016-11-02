@@ -13,6 +13,9 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Directory List
+                            <div class="text-right">
+                                <a href="{{ URL::to('directory/add') }}" class="btn btn-success" ><p class="fa fa-plus-square-o"> Add Directory </p></a>
+                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

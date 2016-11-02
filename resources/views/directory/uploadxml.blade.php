@@ -21,7 +21,7 @@
                                         
                                         <div class="form-group">
                                             <label>Buisness List</label>
-                                            {!! Form::text('type',$directory,['class'=>'form-control','placeholder'=>'Directory Name']) !!}
+                                            {!! Form::hidden('type',$directory,['class'=>'form-control','placeholder'=>'Directory Name']) !!}
                                             {!! Form::file('directory_file','',['class'=>'form-control','required'=>'required','placeholder'=>'Directory Name']) !!}
                                         </div>
                                         

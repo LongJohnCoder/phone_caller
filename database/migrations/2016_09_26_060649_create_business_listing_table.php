@@ -16,7 +16,6 @@ class CreateBusinessListingTable extends Migration
         //
         Schema::create('business_listing', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type');
             $table->longText('company_name')->nullable();
             $table->longText('website')->nullable();
             $table->longText('address')->nullable();

@@ -27,3 +27,13 @@ Route::get('callconsole/add_call','CallconsoleController@addcall');
 Route::post('callstack/save','CallconsoleController@saveexces');
 Route::get('callconsole/testcall/{directory}','DirectoryController@readNCall');
 Route::get('start-calling/{directory}','DirectoryController@readNCall');
+Route::get('directory/individual/{directory}','DirectoryController@AddIndividual');
+/* Ajax */
+Route::post('Ajax/moveto','AjaxController@MoveToGenerate');
+Route::post('Ajax/moveorcopy','AjaxController@MoveOrCopy');
+
+Route::post('directory/savebusiness','DirectoryController@savebusiness');
+
+Route::get('buisness/edit/{buisness_id}','DirectoryController@editbusiness');
+
+Route::post('directory/updatebusiness','DirectoryController@updatebusiness');
