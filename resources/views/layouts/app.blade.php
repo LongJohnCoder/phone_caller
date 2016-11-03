@@ -131,18 +131,29 @@
                 });
 
 
-                $(".callhit").on("click", function()
+                $(".callpop").on("click", function()
                 {
-                //alert($(this).data("id"));
-                $.ajax({
-                url: "<?php echo url('/');?>/callconsole/testcall/"+$(this).data("id"),
-                data: {_token: '{!! csrf_token() !!}'},
-                type :"get",
-                success: function( data ) {
-                                //$("#notevalue").html(data);
-                                        }
-                });
-                return false;
+                    var selected = new Array();
+                    $("input:checkbox[name='direc[]']:checked").each(function() {
+                        selected.push($(this).val());
+                    });
+                    var dir=$(this).data("nowdirect");
+                    console.log(selected.length);
+                    if(selected.length!=0){
+                       $.ajax({
+                        url: "<?php echo url('/');?>/Ajax/callform",
+                        data: {_token: '{!! csrf_token() !!}',directory:dir,select_business:selected},
+                        type :"post",
+                        success: function( data ) {
+                            $(".boxball").html(data);
+                            }
+                    }); 
+                   }else{
+                    console.log(selected.length);
+                    $(".boxball").html('<h4>Please Select Atlist one buisness to Call</h4>');
+                   }
+
+                //return false;
                 });
 
                 $(".chkbox").change(function() {                

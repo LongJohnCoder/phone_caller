@@ -17,7 +17,7 @@
 							<div class="text-right">
                                 <a href="{{ URL::to('directory/individual') }}/{!! $directory !!}" class="btn btn-success" ><p class="fa fa-plus-square-o"> Add Individual Buissness </p></a>
 								<a href="{{ URL::to('directory/uploadxml') }}/{!! $directory !!}" class="btn btn-success" ><p class="fa fa-plus-square-o"> Upload Buissness List </p></a>
-                                <a href="" class="btn btn-success callhit" data-id="{!! $directory !!}"><p class="glyphicon glyphicon-phone-alt"> Call </p></a>
+                                <button type="button" class="btn btn-success btn-lg callpop" data-nowdirect="{!! $directory !!}" data-toggle="modal" data-target="#callModal"><p class="glyphicon glyphicon-phone-alt"> Call </p></button>
                                 <button type="button" class="btn btn-info btn-lg moveact" data-nowdirect="{!! $directory !!}" data-toggle="modal" data-target="#myModal">Move/Copy</button>
 							</div>
 
@@ -78,6 +78,22 @@
                                 <h4 class="modal-title">Move/Copy Buisness to Directory</h4>
                         </div>
                         <div class="modal-body">
+                            <p>...........</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="callModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Call</h4>
+                        </div>
+                        <div class="modal-body boxball">
                             <p>...........</p>
                         </div>
                         <div class="modal-footer">

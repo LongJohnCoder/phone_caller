@@ -27,16 +27,12 @@ class AjaxController extends Controller
     			$sel=$sel.",".$value;
     		}
     	}
-    	
     	//dd($request->all());
     	return view('ajax.moveto',compact('sel','Directories','num','directoryx'));
     }
     public function MoveOrCopy(Request $request){
-
-		
-		$reqlist=$request->input('list_id');
+    	$reqlist=$request->input('list_id');
 		$explist_id=explode(',',$reqlist);
-		
 		$type=$request->input('type');
 		$to=$request->input('to');
 		$from=$request->input('from');
@@ -49,8 +45,6 @@ class AjaxController extends Controller
 	            $BusinessListMapDirectory->directory_id=$to;
 	            $BusinessListMapDirectory->save();
 				}
-				
-
 			}
 		}
 		if($type==2){
@@ -65,10 +59,24 @@ class AjaxController extends Controller
 			}
 			foreach ($explist_id as $key => $value) {
 			$BusinessListMapDirectory=BusinessListMapDirectory::where('directory_id',$from)->where('business_list_id',$value)->delete();
-            
 			}
-
 		}
-
+    }
+    public function CallForm(Request $request){
+    	//dd($request->all());
+    	$directoryx=$request->input('directory');
+    	$Directories=Directories::where('id','!=',$directoryx)->get();	
+    	$selected=$request->input('select_business');
+    	$sel="";
+    	$num=0;
+    	foreach ($selected as $key => $value) {
+    		$num++;
+    		if($sel==""){
+    			$sel=$value;
+    		}else{
+    			$sel=$sel.",".$value;
+    		}
+    	}
+    	return view('ajax.callform',compact('sel','Directories','num','directoryx'));
     }
 }

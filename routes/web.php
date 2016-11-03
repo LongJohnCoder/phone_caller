@@ -31,6 +31,7 @@ Route::get('directory/individual/{directory}','DirectoryController@AddIndividual
 /* Ajax */
 Route::post('Ajax/moveto','AjaxController@MoveToGenerate');
 Route::post('Ajax/moveorcopy','AjaxController@MoveOrCopy');
+Route::post('Ajax/callform','AjaxController@CallForm');
 
 Route::post('directory/savebusiness','DirectoryController@savebusiness');
 
