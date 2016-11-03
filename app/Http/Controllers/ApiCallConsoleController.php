@@ -77,6 +77,7 @@ class ApiCallConsoleController extends Controller
 				$CallQueue->save();
             }
             $exc = $this->readNCall($direct);
+            dd($exc);
             
         }
         
@@ -96,6 +97,7 @@ class ApiCallConsoleController extends Controller
             '+'.$callx->phone, 
             $callx->pathxl
             );
+            dd($call);
             $CallQueueup=CallQueue::find($callx->id);
             $CallQueueup->called=1;
             $CallQueueup->save();
