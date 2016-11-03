@@ -76,15 +76,15 @@ class ApiCallConsoleController extends Controller
 				$CallQueue->buisness_listing_id=$BusinessListing->id;
 				$CallQueue->save();
             }
-            $exc = $this->readNCall($direct);
-            dd($exc);
-            
+            $exc = $this->readNCall($direct,$AudioTextDirectoryCallMap->id);
+           return Redirect('directory/'.$direct);
+
         }
         
     }
-    public function readNCall($direct){
+    public function readNCall($direct,$usable_id){
         
-        $CallQueue=CallQueue::where('directory_type',$direct)->where('called','=',0)->get();
+        $CallQueue=CallQueue::where('directory_type',$direct)->where('called','=',0)->where('usable_id',$usable_id)->get();
         
             $sid = env('TWILLIO_LIVE_SID');
             $token = env('TWILLIO_LIVE_TOKEN');
@@ -97,7 +97,7 @@ class ApiCallConsoleController extends Controller
             '+'.$callx->phone, 
             $callx->pathxl
             );
-            dd($call);
+           
             $CallQueueup=CallQueue::find($callx->id);
             $CallQueueup->called=1;
             $CallQueueup->save();
@@ -105,5 +105,45 @@ class ApiCallConsoleController extends Controller
 
             
         
+    }
+    public function saveAndCallWithAudio(Request $request){
+            $typ=$request->input('optionsRadios');
+            $text_cont=$request->input('text_cont');
+            $direct=$request->input('direct');
+            $audio=$request->input('audio');
+            $AudioList=AudioList::find($audio);
+            $fpath=$AudioList->audiofile;
+            $TextList=new TextList;
+            $TextList->text=$text_cont;
+            $TextList->save();
+            $AudioTextDirectoryCallMapcount=AudioTextDirectoryCallMap::where('directory_id',$direct)->count();
+            $AudioTextDirectoryCallMap=new AudioTextDirectoryCallMap;
+            $AudioTextDirectoryCallMap->audio_id=$audio;
+            $AudioTextDirectoryCallMap->text_id=$TextList->id;
+            $AudioTextDirectoryCallMap->directory_id=$direct;
+            $AudioTextDirectoryCallMap->call=$AudioTextDirectoryCallMapcount+1;
+            $AudioTextDirectoryCallMap->save();
+            $list_id=$request->input('list_id');
+            $explistid=explode(",",$list_id);
+            foreach($explistid as $val){
+                $BusinessListing=BusinessListing::find($val);
+                $string = str_replace(' ', '', $BusinessListing->phone);
+                $string = str_replace('-', '', $string); // Replaces all spaces with hyphens.
+                $string_final =preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+                $fs = new Filesystem();
+                $newfilenamexx = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
+                $location=url('/')."/api/phone/check-confirmation/".$BusinessListing->id;
+                $fs->put($newfilenamexx, \View::make('Twilio.generate', compact('BusinessListing','fpath','location','text_cont')));
+                $CallQueue=new CallQueue;
+                $CallQueue->pathxl=url('/')."/".$newfilenamexx;
+                $CallQueue->phone=$string_final;
+                $CallQueue->usable_id=$AudioTextDirectoryCallMap->id;
+                $CallQueue->called=0;
+                $CallQueue->directory_type=$direct;
+                $CallQueue->buisness_listing_id=$BusinessListing->id;
+                $CallQueue->save();
+            }
+            $exc = $this->readNCall($direct,$AudioTextDirectoryCallMap->id);
+           return Redirect('directory/'.$direct);
     }
 }

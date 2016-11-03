@@ -9,6 +9,8 @@ use App\Model\Directories;
 use App\Model\BusinessListing;
 use App\Model\CallStack;
 use App\Model\BusinessListMapDirectory;
+use App\Model\AudioTextDirectoryCallMap;
+use App\Model\CallQueue;
 use File;
 use View;
 use Illuminate\Routing\UrlGenerator;
@@ -43,7 +45,13 @@ class DirectoryController extends Controller
     	$direct=$this->direc;
         $directory;
         $BusinessListMapDirectory=BusinessListMapDirectory::where('directory_id',$directory)->with('buisness_details')->get();
-        return view('directory.buisness_list',compact('direct','directory','BusinessListMapDirectory'));
+        $AudioTextDirectoryCallMap=AudioTextDirectoryCallMap::where('directory_id',$directory)->with('audio','text')->get();
+        
+        foreach ($BusinessListMapDirectory as $key => $value) {
+            $BusinessListMapDirectory[$key]['callno']=CallQueue::where('directory_type',$directory)->where('buisness_listing_id',$value->business_list_id)->count();
+        }
+        //dd($BusinessListMapDirectory);
+        return view('directory.buisness_list',compact('direct','directory','BusinessListMapDirectory','AudioTextDirectoryCallMap'));
     }
     public function UploadXml($directory){
     	$direct=$this->direc;

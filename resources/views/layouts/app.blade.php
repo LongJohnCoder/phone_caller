@@ -138,11 +138,20 @@
                         selected.push($(this).val());
                     });
                     var dir=$(this).data("nowdirect");
-                    console.log(selected.length);
+                    
                     if(selected.length!=0){
+                        var textRadio=$("input[name='textRadio']:checked").val();
+                        var audioRadio=$("input[name='audioRadio']:checked").val();
+                        if(typeof textRadio === "undefined" ){
+                           textRadio=0;
+                        }
+                        if(typeof audioRadio === "undefined"){
+                            audioRadio=0;
+                        }
+                        
                        $.ajax({
                         url: "<?php echo url('/');?>/Ajax/callform",
-                        data: {_token: '{!! csrf_token() !!}',directory:dir,select_business:selected},
+                        data: {_token: '{!! csrf_token() !!}',directory:dir,select_business:selected,textRadio:textRadio,audioRadio:audioRadio},
                         type :"post",
                         success: function( data ) {
                             $(".boxball").html(data);

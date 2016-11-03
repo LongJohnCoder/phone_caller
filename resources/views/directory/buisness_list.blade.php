@@ -9,6 +9,38 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                @foreach($AudioTextDirectoryCallMap as $allaudio)
+                <div class="col-lg-3">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            Call No {{$allaudio->call}}
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label>Text</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="textRadio" id="text" value="{{$allaudio->text->id}}"></label><label>{{$allaudio->text->text}}</label>
+                                   
+                                </div>
+                                <label>Audio</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="audioRadio" id="audio" value="{{$allaudio->audio->id}}"></label><label>{{$allaudio->audio->name}}</label>
+                                   
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            
+            <div class="row">
+
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -47,7 +79,7 @@
                                         <td>{!!  $list->buisness_details->website !!}</td>
                                         <td>{!!  $list->buisness_details->phone !!}</td>
                                         <td >{!!  $list->buisness_details->email_id !!}</td>
-                                        <td >@if($list->buisness_details->called==1)Yes @else No @endif</td>
+                                        <td >{!! $list->callno !!}</td>
                                         <td>@if($list->buisness_details->subscribed==1)Yes @else No @endif</td>
                                         <td>{!!  $list->buisness_details->call_time !!}</td>
                                         <td></td>

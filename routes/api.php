@@ -18,3 +18,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 Route::any('phone/check-confirmation/{buisness_listin_id}','CallconsoleController@CheckConfirm');
 Route::post('callconsole/save','ApiCallConsoleController@saveAndCall');
+Route::post('callconsole/savewithAudio','ApiCallConsoleController@saveAndCallWithAudio');
+Route::post('callconsole/savewithaudioandtext','ApiCallConsoleController@saveAndCallWithAudioAndText');

@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Model\Directories;
 use App\Model\BusinessListMapDirectory;
 use View;
+use App\Model\AudioList;
+use App\Model\TextList;
 
 class AjaxController extends Controller
 {
@@ -77,6 +79,25 @@ class AjaxController extends Controller
     			$sel=$sel.",".$value;
     		}
     	}
-    	return view('ajax.callform',compact('sel','Directories','num','directoryx'));
+        $textRadio=$request->input('textRadio');
+        $audioRadio=$request->input('audioRadio');
+        if($textRadio==0 && $audioRadio==0){
+            return view('ajax.callform',compact('sel','Directories','num','directoryx'));
+        }
+        if($textRadio!=0 && $audioRadio==0){
+            $TextList=TextList::find($textRadio);
+            return view('ajax.callformwithtext',compact('TextList','textRadio','sel','Directories','num','directoryx'));
+        }
+        if($textRadio==0 && $audioRadio!=0){
+            $AudioList=AudioList::find($audioRadio);
+            return view('ajax.callformwithaudio',compact('AudioList','audioRadio','sel','Directories','num','directoryx'));
+        }
+        if($textRadio!=0 && $audioRadio!=0){
+            $TextList=TextList::find($textRadio);
+            $AudioList=AudioList::find($audioRadio);
+            return view('ajax.callformwithaudiotext',compact('TextList','AudioList','textRadio','audioRadio','sel','Directories','num','directoryx'));
+        }
+
+    	
     }
 }
