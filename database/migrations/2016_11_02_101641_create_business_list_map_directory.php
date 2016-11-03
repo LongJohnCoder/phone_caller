@@ -17,6 +17,11 @@ class CreateBusinessListMapDirectory extends Migration
             $table->increments('id');
             $table->integer('business_list_id');
             $table->integer('directory_id');
+            $table->integer('called')->nullable();
+            $table->integer('subscribed')->nullable();
+            $table->time('call_time')->nullable();
+            $table->integer('call_now')->nullable();
+            $table->dateTime('call_at')->nullable();
             $table->timestamps();
         });
 

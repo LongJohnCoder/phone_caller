@@ -65,7 +65,7 @@ class ApiCallConsoleController extends Controller
 				$string_final =preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 				$fs = new Filesystem();
 				$newfilenamexx = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
-				$location=url('/')."/api/phone/check-confirmation/".$BusinessListing->id;
+				$location=url('/')."/api/phone/check-confirmation/".$BusinessListing->id."/".$direct;
 				$fs->put($newfilenamexx, \View::make('Twilio.generate', compact('BusinessListing','fpath','location','text_cont')));
 				$CallQueue=new CallQueue;
             	$CallQueue->pathxl=url('/')."/".$newfilenamexx;
@@ -97,7 +97,9 @@ class ApiCallConsoleController extends Controller
             '+'.$callx->phone, 
             $callx->pathxl
             );
-           
+            $BusinessListMapDirectory=BusinessListMapDirectory::where('business_list_id',$callx->buisness_listing_id)->where('directory_id',$callx->directory_type)->first();
+            $BusinessListMapDirectory->call_at=date('Y-m-d H:i:s');
+            $BusinessListMapDirectory->save();
             $CallQueueup=CallQueue::find($callx->id);
             $CallQueueup->called=1;
             $CallQueueup->save();
@@ -132,7 +134,7 @@ class ApiCallConsoleController extends Controller
                 $string_final =preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
                 $fs = new Filesystem();
                 $newfilenamexx = "phonexml/".rand(1000, 9999)."-".date('U').'.xml';
-                $location=url('/')."/api/phone/check-confirmation/".$BusinessListing->id;
+                $location=url('/')."/api/phone/check-confirmation/".$BusinessListing->id."/".$direct;
                 $fs->put($newfilenamexx, \View::make('Twilio.generate', compact('BusinessListing','fpath','location','text_cont')));
                 $CallQueue=new CallQueue;
                 $CallQueue->pathxl=url('/')."/".$newfilenamexx;

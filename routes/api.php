@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
-Route::any('phone/check-confirmation/{buisness_listin_id}','CallconsoleController@CheckConfirm');
+Route::any('phone/check-confirmation/{buisness_listin_id}/{directory_id}','CallconsoleController@CheckConfirm');
 Route::post('callconsole/save','ApiCallConsoleController@saveAndCall');
 Route::post('callconsole/savewithAudio','ApiCallConsoleController@saveAndCallWithAudio');
 Route::post('callconsole/savewithaudioandtext','ApiCallConsoleController@saveAndCallWithAudioAndText');

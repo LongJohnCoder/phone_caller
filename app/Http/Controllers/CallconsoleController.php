@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
+use App\Model\BusinessListMapDirectory;
 use App\Model\Directories;
 use App\Model\BusinessListing;
 use App\Model\CallStack;
@@ -71,44 +72,42 @@ class CallconsoleController extends Controller
 		}
 
 	}
-	public function CheckConfirm($buisness_listin_id,Request $request){
+	public function CheckConfirm($buisness_listin_id,$directory_id,Request $request){
 			
 		
 		if ($request->has('Digits')) {
 			$Digits=$request->get('Digits');
 			if($Digits==0){
 
-				$BusinessListing=BusinessListing::find($buisness_listin_id);
-				$BusinessListing->called=1;
-				$BusinessListing->subscribed=2;
-				$BusinessListing->save();
+				$BusinessListMapDirectory=BusinessListMapDirectory::where('business_list_id',$buisness_listin_id)->where('directory_id',$directory_id)->first();
+				$BusinessListMapDirectory->called=1;
+				$BusinessListMapDirectory->subscribed=2;
+				$BusinessListMapDirectory->save();
 
 			}
 			elseif($Digits==1){
 				$tx=time();
 				$tmy=date("H:i:s",$tx);
-				$BusinessListing=BusinessListing::find($buisness_listin_id);
-				$BusinessListing->called=1;
-				$BusinessListing->subscribed=1;
-				$BusinessListing->call_time=$tmy;
-				$BusinessListing->call_now=1;
-				$BusinessListing->save();
+				$BusinessListMapDirectory=BusinessListMapDirectory::where('business_list_id',$buisness_listin_id)->where('directory_id',$directory_id)->first();
+				$BusinessListMapDirectory->called=1;
+				$BusinessListMapDirectory->subscribed=1;
+				$BusinessListMapDirectory->call_time=$tmy;
+				$BusinessListMapDirectory->call_now=1;
+				$BusinessListMapDirectory->save();
 
 			}
 			else{
-				$BusinessListing=BusinessListing::find($buisness_listin_id);
-				$BusinessListing->called=1;
-				$BusinessListing->subscribed=1;
-				$BusinessListing->call_time=$Digits*100;
-				$BusinessListing->call_now=0;
-				$BusinessListing->save();
+				$BusinessListMapDirectory=BusinessListMapDirectory::where('business_list_id',$buisness_listin_id)->where('directory_id',$directory_id)->first();
+				$BusinessListMapDirectory->called=1;
+				$BusinessListMapDirectory->subscribed=1;
+				$BusinessListMapDirectory->call_time=$Digits*100;
+				$BusinessListMapDirectory->call_now=0;
+				$BusinessListMapDirectory->save();
 			}
 
         
         }
-		$flight = CallStack::where('buisness_listing_id',$buisness_listin_id);
-
-		$flight->delete();
+		
 		
 		$content = \View::make('Twilio.confirm_generate');
 
