@@ -80,9 +80,9 @@
                                         <td>{!!  $list->buisness_details->phone !!}</td>
                                         <td >{!!  $list->buisness_details->email_id !!}</td>
                                         <td >{!! $list->callno !!}</td>
-                                        <td>@if($list->buisness_details->subscribed==1)Yes @else No @endif</td>
-                                        <td>{!!  $list->buisness_details->call_time !!}</td>
-                                        <td></td>
+                                        <td>@if($list->subscribed==1)Yes @else No @endif</td>
+                                        <td>{!!  $list->call_time !!}</td>
+                                        <td>{!!  $list->call_at!!}</td>
                                         <td><a href="{{ URL::to('buisness/edit') }}/{!! $list->buisness_details->id !!}"><p class="fa fa-edit"></p></a></td>
                                     </tr>
                                     @endforeach

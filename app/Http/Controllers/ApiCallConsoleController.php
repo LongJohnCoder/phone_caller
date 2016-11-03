@@ -99,6 +99,7 @@ class ApiCallConsoleController extends Controller
             );
             $BusinessListMapDirectory=BusinessListMapDirectory::where('business_list_id',$callx->buisness_listing_id)->where('directory_id',$callx->directory_type)->first();
             $BusinessListMapDirectory->call_at=date('Y-m-d H:i:s');
+            $BusinessListMapDirectory->called=1;
             $BusinessListMapDirectory->save();
             $CallQueueup=CallQueue::find($callx->id);
             $CallQueueup->called=1;
